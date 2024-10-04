@@ -38,6 +38,99 @@
  *  - Extra: zorg er voor dat de goblin ook een actie neemt.
  */
 
+Console.WriteLine("Welcometo Knight vs Goblin!");
+Console.WriteLine("---------------------------");
+
+Console.WriteLine("Enter Knight Health between 1 and 100: ");
+string inputKnightHealth = Console.ReadLine();
+
+Random randomNumberGenerator = new Random();
+int goblinHealth = randomNumberGenerator.Next(1, 101);
+int knightHealth;
+if (int.TryParse(inputKnightHealth, out knightHealth))
+{
+    if (knightHealth <= 0 || knightHealth >= 100)
+    {
+        Console.WriteLine("Invalid number. Default value 100 is used");
+        knightHealth = 100;
+    }
+}
+else
+{
+    //Ongeldig getal
+    Console.WriteLine("Invalid number. Default value 100 is used");
+    knightHealth = 100;
+}
+
+Console.WriteLine($"Knight health:{knightHealth}");
+Console.WriteLine($"Goblin health: {goblinHealth}");
+
+do
+{
+
+    int attackKnight = 10;
+    int attackGoblin = randomNumberGenerator.Next(5, 16);
+
+    Console.WriteLine("To attack press 1 or A and to heal press 2 or H: ");
+    string selectedAction = Console.ReadLine();
+
+    switch (selectedAction)
+    {
+        case "A":
+        case "1":
+            goblinHealth -= attackKnight;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"You attacked the Goblin for {attackKnight}");
+            Console.ResetColor();
+            break;
+        case "H":
+        case "2":
+            knightHealth += 10;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("You healed yourself for 10 points");
+            Console.ResetColor();
+            break;
+        default:
+            Console.ForegroundColor= ConsoleColor.Red;
+            Console.WriteLine("Invalid Move, please choose a valid move");
+            Console.ResetColor();
+            break;
+    }
+
+    if (goblinHealth > 0)
+    {
+        knightHealth -= attackGoblin;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"The Goblin attacked you for {attackGoblin}");
+        Console.ResetColor();
+    }
+
+
+    if (knightHealth <= 0)
+    {
+        Console.WriteLine("You have died!");
+    }
+    else
+    {
+        Console.WriteLine("Knight Health: " + knightHealth);
+    }
+
+    if (goblinHealth <= 0)
+    {
+        Console.WriteLine("Goblin has died");
+    }
+
+    else
+    {
+        Console.WriteLine($"Goblin Health : {goblinHealth}");
+    }
+} while ( knightHealth > 0 && goblinHealth > 0 );
+
+
+
+
+
+
 /*
  * Deel 4
  * 
